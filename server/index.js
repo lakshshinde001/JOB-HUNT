@@ -4,6 +4,7 @@ import cors from 'cors'
 import  dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.route.js"
+import companyRoutes from "./routes/company.routes.js"
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(cors(corsOptions))
 
 
 app.use("/api/v1/user", userRoutes)
+app.use("/api/v1/company", companyRoutes)
 
 app.listen(PORT, ()=> {
     console.log(`Server is running at PORT : ${PORT}`)
