@@ -5,6 +5,7 @@ import  dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.route.js"
 import companyRoutes from "./routes/company.routes.js"
+import jobRoutes from "./routes/job.route.js"
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use(cors(corsOptions))
 
 app.use("/api/v1/user", userRoutes)
 app.use("/api/v1/company", companyRoutes)
+app.use("/api/v1/job", jobRoutes)
 
 app.listen(PORT, ()=> {
     console.log(`Server is running at PORT : ${PORT}`)
