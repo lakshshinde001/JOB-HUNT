@@ -7,6 +7,7 @@ import {
 import React from "react";
 import { Button } from "../ui/button";
 import { User2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -30,8 +31,8 @@ const Navbar = () => {
           {
             !user ? (
               <div className="flex items-center gap-2">
-                <Button variant="outline">Outline</Button>
-                <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]" >Sign-up</Button>
+                 <Link to="/login" > <Button variant="outline">Login</Button></Link>   
+                <Link to="/signup"> <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]" >Sign-up</Button> </Link> 
               </div>
             ) : (
                   <Popover>
