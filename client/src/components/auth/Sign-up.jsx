@@ -8,6 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/Constant";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const SignUp = () => {
   const [input, setInput] = useState({
@@ -18,6 +21,9 @@ const SignUp = () => {
     role: "",
     file: "",
   });
+
+  const {loading} = useSelector(store => store.auth);
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
   const changeEventHandler = (e) => {
@@ -30,7 +36,7 @@ const SignUp = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(input);
+    console.log(input);
     const formData = new FormData();
     formData.append("fullname", input.fullName);
     formData.append("email", input.email);
@@ -44,6 +50,7 @@ const SignUp = () => {
 
 
     try {
+      dispatch(setLoading(true))
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
         headers : {
           "Content-Type" : "multipart/form-data"
@@ -57,6 +64,8 @@ const SignUp = () => {
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message);
+    }finally{
+      useDispatch(setLoading(false))
     }
 
   };
@@ -75,8 +84,8 @@ const SignUp = () => {
               <Label>Full Name</Label>
               <Input
                 type="text"
-                value={input.fullname}
-                name="fullname"
+                value={input.fullName}
+                name="fullName"
                 onChange={changeEventHandler}
                 placeholder="laxman"
               />
@@ -146,10 +155,11 @@ const SignUp = () => {
                   className="cursor-pointer"
                 />
               </div>
-            </div>
-            <Button type="submit" className="w-full my-4">
-              submit{" "}
-            </Button>
+            </div> 
+            {
+              loading ? <Button className="w-full my-4" > <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait.. </Button> : 
+              <Button type="submit" className="w-full my-4">Signup </Button>
+            }
             <span className="text-sm">
               Already have an Account? <Link to="/login">Login</Link>{" "}
             </span>
