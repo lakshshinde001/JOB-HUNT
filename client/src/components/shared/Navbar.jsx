@@ -8,10 +8,13 @@ import React from "react";
 import { Button } from "../ui/button";
 import { User2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
 
-  const user = false;
+  // const user = false;
+  const {user} = useSelector(store => store.auth);
+
 
   return (
     <div className="bg-white">
