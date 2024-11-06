@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './shared/Navbar'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { useSelector } from 'react-redux'
 import { Button } from './ui/button';
 import { Label } from './ui/label';
-import { Badge, Contact, Mail, Pen } from 'lucide-react';
+import {Contact, Mail, Pen } from 'lucide-react';
 import AppliedJobTable from './AppliedJobTable';
+import { Badge } from './ui/badge';
+import UpdateProfileDialog from './UpdateProfileDialog';
 
 const skills = ["html", "css", "javascript"]
 const isResume = true;
 
 function Profile() {
-
+    const [open, setOpen] = useState(false)
     const {user} = useSelector(store => store.auth);
   return (
     <div>
@@ -27,7 +29,7 @@ function Profile() {
                             <p>{user?.profile?.bio}</p>
                         </div>
                     </div>
-                    <Button  className="text-right" variant="outline"><Pen /></Button>
+                    <Button onClick={() => setOpen(true)} className="text-right" variant="outline"><Pen /></Button>
                 </div>
                 <div className='my-5'>
                     <div className='flex items-center gap-3 my-2'>
@@ -59,7 +61,7 @@ function Profile() {
                 Applied Job Table  
                 <AppliedJobTable/>
             </div>
-            {/* <UpdateProfileDialog open={open} setOpen={setOpen}/> */}
+            <UpdateProfileDialog open={open} setOpen={setOpen}/>
         </div>
   )
 }
