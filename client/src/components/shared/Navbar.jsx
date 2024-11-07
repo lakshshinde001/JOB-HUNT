@@ -6,14 +6,33 @@ import {
 } from "@radix-ui/react-popover";
 import React from "react";
 import { Button } from "../ui/button";
-import { User2 } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { LogOut, User2 } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { toast } from "sonner";
+import { USER_API_ENDPOINT } from "@/utils/Constant";
+import { setUser } from "@/redux/authSlice";
 
 const Navbar = () => {
 
-  // const user = false;
-  const {user} = useSelector(store => store.auth);
+    const { user } = useSelector(store => store.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logoutHandler = async () => {
+        try {
+            const res = await axios.get(`${USER_API_ENDPOINT}/logout`, { withCredentials: true });
+            if (res.data.success) {
+                dispatch(setUser(null));
+                navigate("/");
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
 
 
   return (
@@ -69,8 +88,8 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex w-fit items-center gap-2 cursor-pointer">
-                        <User2/>
-                        <Button variant="link"> Logout</Button>
+                        <LogOut/>
+                        <Button onClick={logoutHandler} variant="link"> Logout</Button>
                     </div>         
                   </div>
                   </div>
