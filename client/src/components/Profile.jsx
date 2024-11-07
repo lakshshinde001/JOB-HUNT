@@ -10,7 +10,7 @@ import { Badge } from './ui/badge';
 import UpdateProfileDialog from './UpdateProfileDialog';
 
 const skills = ["html", "css", "javascript"]
-const isResume = true;
+const isResume = true
 
 function Profile() {
     const [open, setOpen] = useState(false)
