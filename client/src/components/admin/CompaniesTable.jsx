@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const CompaniesTable = () => {
-    // const { companies, searchCompanyByText } = useSelector(store => store.company);
+    const { companies} = useSelector(store => store.company);
     // const [filterCompany, setFilterCompany] = useState(companies);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     // useEffect(()=>{
     //     const filteredCompany = companies.length >= 0 && companies.filter((company)=>{
     //         if(!searchCompanyByText){
@@ -33,8 +33,8 @@ const CompaniesTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {/* {
-                        filterCompany?.map((company) => (
+                    {
+                        companies?.map((company) => (
                             <tr>
                                 <TableCell>
                                     <Avatar>
@@ -57,7 +57,7 @@ const CompaniesTable = () => {
                             </tr>
 
                         ))
-                    } */}
+                    }
                 </TableBody>
             </Table>
         </div>
