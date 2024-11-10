@@ -22,8 +22,9 @@ const CompaniesTable = () => {
     },[companies,searchCompanyByText])
     return (
         <div>
+            <p className='text-center font-light'>List of your recent registered companies</p>
             <Table>
-                <TableCaption>A list of your recent registered companies</TableCaption>
+                {/* <TableCaption>A list of your recent registered companies</TableCaption> */}
                 <TableHeader>
                     <TableRow>
                         <TableHead>Logo</TableHead>
