@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -19,10 +19,11 @@ const Login = () => {
     password : "",
     role : "",
   });
+  // const {user} = useSelector((store) => state)
   
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {loading} = useSelector(store => store.auth)
+  const {loading, user} = useSelector(store => store.auth)
   const changeEventHandler = (e) => {
     setInput({...input, [e.target.name]: e.target.value});
   }
@@ -55,6 +56,12 @@ const Login = () => {
     }
 
   };
+
+  useEffect(() => {
+    if(user){
+      navigate("/")
+    }
+  }, [])
 
   return (
     <>

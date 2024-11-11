@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -22,8 +22,9 @@ const SignUp = () => {
     file: "",
   });
 
-  const {loading} = useSelector(store => store.auth);
+  const {loading, user} = useSelector(store => store.auth);
   const dispatch = useDispatch()
+
 
   const navigate = useNavigate()
   const changeEventHandler = (e) => {
@@ -48,6 +49,7 @@ const SignUp = () => {
       formData.append("file", input.file);
     }
 
+    // const {user} = useSelector((store) => store.auth)
 
     try {
       dispatch(setLoading(true))
@@ -61,14 +63,22 @@ const SignUp = () => {
         navigate('/login')
         toast.success(res.data.message);
       }
+    
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message);
     }finally{
-      useDispatch(setLoading(false))
+      console.log("Im outside loading")
+      dispatch(setLoading(false))
     }
 
   };
+
+  useEffect(()=>{
+    if(user){
+        navigate("/");
+    }
+},[])  
 
   return (
     <>

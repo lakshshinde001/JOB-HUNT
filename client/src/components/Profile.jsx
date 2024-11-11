@@ -8,6 +8,7 @@ import {Contact, Mail, Pen } from 'lucide-react';
 import AppliedJobTable from './AppliedJobTable';
 import { Badge } from './ui/badge';
 import UpdateProfileDialog from './UpdateProfileDialog';
+import useGetAppliedJobs from '@/hooks/useGetAllAppliedJobs';
 
 const skills = ["html", "css", "javascript"]
 const isResume = true
@@ -15,6 +16,7 @@ const isResume = true
 function Profile() {
     const [open, setOpen] = useState(false)
     const {user} = useSelector(store => store.auth);
+    useGetAppliedJobs()
   return (
     <div>
             <Navbar />
@@ -58,7 +60,6 @@ function Profile() {
             </div>
             <div className='max-w-4xl mx-auto bg-white rounded-2xl'>
                 <h1 className='font-bold text-lg my-5'>Applied Jobs</h1>
-                Applied Job Table  
                 <AppliedJobTable/>
             </div>
             <UpdateProfileDialog open={open} setOpen={setOpen}/>
