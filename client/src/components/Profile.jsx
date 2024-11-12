@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './shared/Navbar'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ import AppliedJobTable from './AppliedJobTable';
 import { Badge } from './ui/badge';
 import UpdateProfileDialog from './UpdateProfileDialog';
 import useGetAppliedJobs from '@/hooks/useGetAllAppliedJobs';
+import { useNavigate } from 'react-router-dom';
 
 const skills = ["html", "css", "javascript"]
 const isResume = true
@@ -16,7 +17,14 @@ const isResume = true
 function Profile() {
     const [open, setOpen] = useState(false)
     const {user} = useSelector(store => store.auth);
+    const navigate = useNavigate();
     useGetAppliedJobs()
+
+    useEffect(()=> {
+        if(!user){
+            navigate('/login')
+        }
+    },[])
   return (
     <div>
             <Navbar />
